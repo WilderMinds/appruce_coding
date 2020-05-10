@@ -83,6 +83,7 @@ public class MainFragment extends Fragment {
     private TextureView textureView;
     private Button captureBtn, cancelBtn, uploadBtn;
     private ProgressBar uploadSpinner;
+    private TextureView uploadText;
 
     // storage
     private File appImagesDirectory, imageFile;
@@ -119,6 +120,7 @@ public class MainFragment extends Fragment {
         cancelBtn = view.findViewById(R.id.cancel_btn);
         uploadBtn = view.findViewById(R.id.upload_btn);
         uploadSpinner = view.findViewById(R.id.upload_progress);
+        uploadText = view.findViewById(R.id.upload_text);
         return view;
     }
 
@@ -205,7 +207,7 @@ public class MainFragment extends Fragment {
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                unfreeze();
             }
         });
 
@@ -213,6 +215,7 @@ public class MainFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 uploadSpinner.setVisibility(View.VISIBLE);
+                uploadText.setVisibility(View.VISIBLE);
                 uploadImage();
             }
         });
@@ -294,6 +297,9 @@ public class MainFragment extends Fragment {
     }
 
     private void capture(){
+        freeze();
+        uploadSpinner.setVisibility(View.VISIBLE);
+
 
         FileOutputStream photo = null;
         try {
@@ -301,7 +307,8 @@ public class MainFragment extends Fragment {
             photo = new FileOutputStream(imageFile);
             textureView.getBitmap().compress(Bitmap.CompressFormat.PNG, 100, photo);
 
-            freeze();
+
+            uploadImage();
 
         } catch (Exception e){
             e.printStackTrace();
@@ -399,13 +406,14 @@ public class MainFragment extends Fragment {
     private void toggleVisibility(boolean isPreviewLocked){
         if (isPreviewLocked){
             captureBtn.setVisibility(View.GONE);
-            cancelBtn.setVisibility(View.VISIBLE);
-            uploadBtn.setVisibility(View.VISIBLE);
+            cancelBtn.setVisibility(View.GONE);
+            uploadBtn.setVisibility(View.GONE);
         } else {
             captureBtn.setVisibility(View.VISIBLE);
             cancelBtn.setVisibility(View.GONE);
             uploadBtn.setVisibility(View.GONE);
             uploadSpinner.setVisibility(View.GONE);
+            uploadText.setVisibility(View.GONE);
         }
     }
 
