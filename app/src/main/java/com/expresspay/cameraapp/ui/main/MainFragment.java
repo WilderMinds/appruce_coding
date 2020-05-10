@@ -35,6 +35,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.expresspay.cameraapp.R;
 import com.expresspay.cameraapp.network.APIService;
@@ -83,7 +84,7 @@ public class MainFragment extends Fragment {
     private TextureView textureView;
     private Button captureBtn, cancelBtn, uploadBtn;
     private ProgressBar uploadSpinner;
-    private TextureView uploadText;
+    private TextView uploadText;
 
     // storage
     private File appImagesDirectory, imageFile;
